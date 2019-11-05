@@ -5,5 +5,8 @@ This is a solution for the coveo challenge found in
 ### this application uses asp.net core as a backend and deploys this website on
 https://coveochallenge20191104051307.azurewebsites.net/
 
+
+### This code scored 8/8 which is full score!!
+
 Thank you,
 Team: Cartman

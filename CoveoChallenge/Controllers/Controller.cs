@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CoveoChallenge.Models;
+﻿using CoveoChallenge.Models;
 using CoveoChallenge.Services;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace CoveoChallenge.Controllers
 {
@@ -22,7 +22,7 @@ namespace CoveoChallenge.Controllers
             List<string> answers = new List<string>();
             foreach (List<List<char>> p in problems)
             {
-               answers.Add(PuzzleSolver.Solve(p));
+                answers.Add(PuzzleSolver.Solve(p));
             }
 
             Participant[] participants = new Participant[4];

@@ -68,9 +68,15 @@ namespace CoveoChallenge.Services
 
         public static string TryMatch(List<List<char>> data, int[] boundingBox, int cellsLeft)
         {
-            // we cannot construct more characters
-            if (cellsLeft < 9)
-                return null;
+
+            if (cellsLeft == 0)
+            {
+                return ""; // no more left
+            }
+            else if (cellsLeft < 9)
+            {
+                return null;  //we cannot construct more
+            }
 
             // BackTrack and try all possible characters
             for (int i = boundingBox[0]; i <= boundingBox[1]; i++)
@@ -84,7 +90,7 @@ namespace CoveoChallenge.Services
                             if (cellsLeft < CHARACTER_SIZES[character])
                                 continue;
 
-                            for (int orientation = 0; orientation < 3; orientation++)
+                            for (int orientation = 0; orientation < 4; orientation++)
                             {
                                 List<List<char>> clone = data.Select(list => list.Select(item => item).ToList()).ToList();
                                 if (MatchChar(clone, character, orientation, i, j, boundingBox))
@@ -136,7 +142,7 @@ namespace CoveoChallenge.Services
         {
             // mark the position as visited and explore neighbors
             data[startX][startY] = 'V';
-            boundingBox = UpdateBox(new int[4] { startX, startX, startY, startY }, boundingBox);
+            UpdateBox(boundingBox, startX, startY);
 
             int totalMarked = 1;
             for (int i = 0; i < X_MOVES.Length; i++)
@@ -153,9 +159,12 @@ namespace CoveoChallenge.Services
             return totalMarked;
         }
 
-        public static int[] UpdateBox(int[] b1, int[] b2)
+        public static void UpdateBox(int[] b, int x, int y)
         {
-            return new int[4] { Min(b1[0], b2[0]), Max(b1[1], b2[1]), Min(b1[2], b2[2]), Max(b1[3], b2[3]) };
+            b[0] = Min(b[0], x);
+            b[1] = Max(b[1], x);
+            b[2] = Min(b[2], y);
+            b[3] = Max(b[3], y);
         }
 
         public static int Min(int x, int y)
